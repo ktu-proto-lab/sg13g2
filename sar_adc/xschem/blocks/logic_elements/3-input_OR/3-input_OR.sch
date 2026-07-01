@@ -124,7 +124,7 @@ C {iopin.sym} -270 350 2 0 {name=p3 lab=VSS}
 C {ipin.sym} -270 -280 0 0 {name=p4 lab=VDDL}
 C {ipin.sym} -270 90 0 0 {name=p5 lab=In_A}
 C {ipin.sym} -270 200 0 0 {name=p6 lab=In_B}
-C {title.sym} -180 460 0 0 {name=l1 author="Ernestas Gruodis - Kaunas University of Technology"}
+C {title.sym} -180 460 0 0 {name=l1 author="Ernestas Gruodis - Kaunas University of Technology "}
 C {ipin.sym} -270 300 0 0 {name=p7 lab=In_C}
 C {sg13g2_pr/sg13_lv_nmos.sym} 110 300 0 0 {name=M6
 l=0.13u
