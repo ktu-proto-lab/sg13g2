@@ -50,7 +50,6 @@ logy=0
 }
 N 300 40 320 40 {lab=GND}
 N 320 40 320 60 {lab=GND}
-N -90 -120 -90 -100 {lab=GND}
 N -40 290 -40 310 {lab=GND}
 N -200 130 -200 150 {lab=GND}
 N -200 40 -200 70 {lab=Vp}
@@ -60,26 +59,12 @@ N -200 40 -0 40 {lab=Vp}
 N -120 130 -120 150 {lab=GND}
 N -120 60 -120 70 {lab=Vn}
 N -120 60 -0 60 {lab=Vn}
-N -180 -120 -180 -100 {lab=GND}
 N 0 -120 0 -100 {lab=GND}
 N -0 -40 -0 -20 {lab=#net1}
-N -90 -40 -90 0 {lab=Bias_cmp_n}
-N -180 -40 -180 20 {lab=Bias_cmp}
-N -90 -0 0 -0 {lab=Bias_cmp_n}
-N -180 20 0 20 {lab=Bias_cmp}
-N 150 180 170 180 {lab=VDDH}
-N 150 220 170 220 {lab=GND}
-N 170 220 170 240 {lab=GND}
-N 150 200 210 200 {lab=Clk_c_n}
-N 0 100 0 140 {lab=Clk_c_n}
-N 0 140 210 140 {lab=Clk_c_n}
 N -40 80 -40 250 {lab=Clk_c}
 N -40 80 -0 80 {lab=Clk_c}
-N 210 140 210 200 {lab=Clk_c_n}
 C {gnd.sym} 320 60 0 0 {name=l1 lab=GND}
-C {vsource.sym} -90 -70 2 0 {name=V6 value=1.2 savecurrent=false}
-C {gnd.sym} -90 -120 2 0 {name=l2 lab=GND}
-C {vsource.sym} -40 280 0 0 {name=V3 value="ac 0 pulse(3.3, 0, 0, 100p, 100p, 500n, 1u)" savecurrent=false}
+C {vsource.sym} -40 280 0 0 {name=V3 value="pulse(3.3 0 1n 1n 1n 500n 1000n)" savecurrent=false}
 C {gnd.sym} -40 310 0 0 {name=l5 lab=GND}
 C {vsource.sym} -200 100 0 0 {name=V4 value="dc 1" savecurrent=false}
 C {gnd.sym} -200 150 0 0 {name=l6 lab=GND}
@@ -91,23 +76,25 @@ value="
 "}
 C {devices/code_shown.sym} -240 460 0 0 {name=NGSPICE only_toplevel=true
 value="
-.tran 10p 50n uic
-
 .control
-* Test all critical V_cm points
-foreach vcm 0.0 0.1 0.5 0.8 1.65 2.5 3.0 3.2 3.3
-    *.ic v(out_p)=1.65 v(out_n)=1.65
-    alter V4 dc=$($vcm + 0.00645)   $ V+ = vcm + 6.45mV
-    alter V5 dc=$vcm                  $ V- = vcm
-    run
-    plot v(out_p) v(out_n) title 'V_cm = $vcm V'
-    
-    * Try to measure regen time
-    meas tran t_regen when v(out_n)=0.5 cross=1
-    print t_regen
-end
+alter V4 dc='1.65645'
+alter V5 dc='1.65'
+
+* 20 cycles at 1 MHz = 20 us
+tran 100p 20u
+
+* Skip first cycle for clean steady-state
+meas tran i_avg avg i(v1) from=1u to=20u
+
+let p_avg     = abs(i_avg) * 3.3
+let e_per_dec = p_avg * 1u
+
+print i_avg
+print p_avg
+print e_per_dec
+
+plot i(v1) v(clk_c)
 .endc
-.end
 "}
 C {devices/launcher.sym} 380 270 0 0 {name=h5
 descr="Load waves" 
@@ -118,16 +105,8 @@ C {lab_wire.sym} 320 20 0 1 {name=p2 sig_type=std_logic lab=Out_n}
 C {lab_wire.sym} -40 150 0 0 {name=p3 sig_type=std_logic lab=Clk_c}
 C {vsource.sym} -120 100 0 0 {name=V5 value="dc 0" savecurrent=false}
 C {gnd.sym} -120 150 0 0 {name=l7 lab=GND}
-C {vsource.sym} -180 -70 2 0 {name=V2 value=2.3 savecurrent=false}
-C {gnd.sym} -180 -120 2 0 {name=l3 lab=GND}
-C {lab_wire.sym} -10 20 0 0 {name=p6 sig_type=std_logic lab=Bias_cmp}
 C {lab_wire.sym} -10 40 0 0 {name=p4 sig_type=std_logic lab=Vp}
 C {lab_wire.sym} -10 60 0 0 {name=p5 sig_type=std_logic lab=Vn}
 C {vsource.sym} 0 -70 2 0 {name=V1 value=3.3 savecurrent=false}
 C {gnd.sym} 0 -120 2 0 {name=l4 lab=GND}
-C {lab_wire.sym} -10 0 0 0 {name=p7 sig_type=std_logic lab=Bias_cmp_n}
-C {Projektai/SG13G2/SAR_ADC/comparator_hv.sym} 150 40 0 0 {name=x1}
-C {Projektai/SG13G2/SAR_ADC/inverter_hv.sym} 110 200 0 0 {name=x2}
-C {lab_wire.sym} 170 180 0 1 {name=p8 sig_type=std_logic lab=VDDH}
-C {gnd.sym} 170 240 0 0 {name=l8 lab=GND}
-C {lab_wire.sym} 20 140 0 1 {name=p10 sig_type=std_logic lab=Clk_c_n}
+C {Projektai/SG13G2/SAR_ADC/comparator_hv_1.sym} 150 40 0 0 {name=x1}
