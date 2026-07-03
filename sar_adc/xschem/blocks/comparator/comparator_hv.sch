@@ -275,7 +275,7 @@ spiceprefix=X
 }
 C {lab_wire.sym} 250 -150 2 1 {name=p15 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 350 -150 0 1 {name=p16 sig_type=std_logic lab=V+}
-C {lab_wire.sym} 0 -270 0 0 {name=p17 sig_type=std_logic lab=Clk_c}
+C {lab_wire.sym} 0 -270 0 0 {name=p17 sig_type=std_logic lab=Clk_c_n}
 C {lab_wire.sym} -10 -70 0 0 {name=p19 sig_type=std_logic lab=A}
 C {lab_wire.sym} 140 -70 0 1 {name=p20 sig_type=std_logic lab=B}
 C {sg13g2_pr/sg13_hv_nmos.sym} 10 30 0 1 {name=M4
