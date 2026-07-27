@@ -78,7 +78,7 @@ value="
 *.include /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mismatch.lib
 *.include /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mod_mismatch.lib
 "}
-C {devices/code_shown.sym} -240 730 0 0 {name=NGSPICE only_toplevel=true
+C {devices/code_shown.sym} -230 730 0 0 {name=NGSPICE only_toplevel=true
 value="
 
 .param mm_ok=1
@@ -109,4 +109,4 @@ C {lab_wire.sym} -10 40 0 0 {name=p4 sig_type=std_logic lab=Vp}
 C {lab_wire.sym} -10 60 0 0 {name=p5 sig_type=std_logic lab=Vn}
 C {vsource.sym} 0 -70 2 0 {name=V1 value=3.3 savecurrent=false}
 C {gnd.sym} 0 -120 2 0 {name=l4 lab=GND}
-C {Projektai/SG13G2/SAR_ADC/comparator_hv_1.sym} 150 40 0 0 {name=x1}
+C {ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/comparator/comparator_hv.sym} 150 40 0 0 {name=x1}

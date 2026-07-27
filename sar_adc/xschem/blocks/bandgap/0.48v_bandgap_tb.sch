@@ -10,11 +10,11 @@ N -60 -100 -60 -80 {lab=VDDH}
 N -160 -100 -60 -100 {lab=VDDH}
 N 10 -100 320 -100 {lab=VDDH}
 N 320 -100 320 -80 {lab=VDDH}
-N -60 -20 -60 60 {lab=#net2}
-N -60 60 30 60 {lab=#net2}
-N -60 60 -60 180 {lab=#net2}
+N -60 -20 -60 60 {lab=Inp}
+N -60 60 30 60 {lab=Inp}
+N -60 60 -60 180 {lab=Inp}
 N 10 100 30 100 {lab=I_bias}
-N -60 240 -60 300 {lab=#net3}
+N -60 240 -60 300 {lab=#net2}
 N -60 360 -60 400 {lab=VSS}
 N 320 360 320 400 {lab=VSS}
 N 260 400 320 400 {lab=VSS}
@@ -25,7 +25,7 @@ N -20 330 0 330 {lab=VSS}
 N 0 330 0 400 {lab=VSS}
 N -60 400 0 400 {lab=VSS}
 N -160 400 -60 400 {lab=VSS}
-N 320 60 320 300 {lab=#net4}
+N 320 60 320 300 {lab=Inn}
 N 10 40 30 40 {lab=VDDH}
 N 230 40 250 40 {lab=#net1}
 N -20 -50 250 -50 {lab=#net1}
@@ -41,12 +41,12 @@ N 330 -80 330 -50 {lab=VDDH}
 N 320 -80 330 -80 {lab=VDDH}
 N 460 -100 460 -80 {lab=VDDH}
 N 460 360 460 400 {lab=VSS}
-N 460 80 460 180 {lab=Eq}
+N 460 80 460 180 {lab=Eq_}
 N 460 -50 470 -50 {lab=VDDH}
 N 470 -80 470 -50 {lab=VDDH}
 N 460 -80 470 -80 {lab=VDDH}
 N 250 -50 250 0 {lab=#net1}
-N 460 240 460 300 {lab=#net5}
+N 460 240 460 300 {lab=#net3}
 N 400 400 460 400 {lab=VSS}
 N 400 330 420 330 {lab=VSS}
 N 400 330 400 400 {lab=VSS}
@@ -54,8 +54,8 @@ N 320 400 400 400 {lab=VSS}
 N 320 -100 460 -100 {lab=VDDH}
 N 410 -50 410 0 {lab=#net1}
 N 410 -50 420 -50 {lab=#net1}
-N 460 80 480 80 {lab=Eq}
-N 460 -20 460 80 {lab=Eq}
+N 460 80 480 80 {lab=Eq_}
+N 460 -20 460 80 {lab=Eq_}
 N 620 -100 620 -80 {lab=VDDH}
 N 620 -50 630 -50 {lab=VDDH}
 N 630 -80 630 -50 {lab=VDDH}
@@ -77,14 +77,14 @@ N 750 330 760 330 {lab=VSS}
 N 760 330 760 360 {lab=VSS}
 N 750 360 760 360 {lab=VSS}
 N 750 360 750 400 {lab=VSS}
-N 700 330 710 330 {lab=#net6}
-N 700 220 700 330 {lab=#net6}
-N 700 90 710 90 {lab=#net6}
-N 620 220 620 300 {lab=#net6}
+N 700 330 710 330 {lab=#net4}
+N 700 220 700 330 {lab=#net4}
+N 700 90 710 90 {lab=#net4}
+N 620 220 620 300 {lab=#net4}
 N 750 -100 750 60 {lab=VDDH}
 N 620 -100 750 -100 {lab=VDDH}
 N 620 400 750 400 {lab=VSS}
-N 750 220 750 300 {lab=#net7}
+N 750 220 750 300 {lab=#net5}
 N 870 220 880 220 {lab=VSS}
 N 880 220 880 250 {lab=VSS}
 N 870 250 880 250 {lab=VSS}
@@ -92,8 +92,8 @@ N 870 250 870 400 {lab=VSS}
 N 750 400 870 400 {lab=VSS}
 N 870 -100 870 190 {lab=VDDH}
 N 750 -100 870 -100 {lab=VDDH}
-N 750 220 830 220 {lab=#net7}
-N 750 120 750 220 {lab=#net7}
+N 750 220 830 220 {lab=#net5}
+N 750 120 750 220 {lab=#net5}
 N 1100 -50 1110 -50 {lab=VDDH}
 N 1110 -80 1110 -50 {lab=VDDH}
 N 1100 -80 1110 -80 {lab=VDDH}
@@ -103,12 +103,12 @@ N 1100 -100 1100 -80 {lab=VDDH}
 N 1050 -50 1050 0 {lab=#net1}
 N 570 0 910 0 {lab=#net1}
 N 1100 -20 1100 20 {lab=I_bias}
-N 620 220 700 220 {lab=#net6}
-N 620 -20 620 220 {lab=#net6}
-N 700 90 700 220 {lab=#net6}
+N 620 220 700 220 {lab=#net4}
+N 620 -20 620 220 {lab=#net4}
+N 700 90 700 220 {lab=#net4}
 N -240 520 -220 520 {lab=VDDH}
 N 20 560 40 560 {lab=VSS}
-N -240 540 -220 540 {lab=Eq}
+N -240 540 -220 540 {lab=Eq_}
 N 40 520 80 520 {lab=Eq_buf}
 N 20 540 40 540 {lab=Eq_buf}
 N 40 520 40 540 {lab=Eq_buf}
@@ -128,8 +128,8 @@ N 910 0 1050 0 {lab=#net1}
 N 960 -100 1100 -100 {lab=VDDH}
 N -240 560 -220 560 {lab=Buf_I_bias}
 N 960 -20 960 20 {lab=Buf_I_bias}
-N 320 -20 320 60 {lab=#net4}
-N 230 60 320 60 {lab=#net4}
+N 320 -20 320 60 {lab=Inn}
+N 230 60 320 60 {lab=Inn}
 N 10 -100 10 40 {lab=VDDH}
 N -60 -100 10 -100 {lab=VDDH}
 N 260 100 260 330 {lab=VSS}
@@ -177,7 +177,7 @@ l=2.0e-6
 m=1
 }
 C {iopin.sym} -160 400 2 0 {name=p3 lab=VSS}
-C {lab_wire.sym} 480 80 0 1 {name=p8 sig_type=std_logic lab=Eq}
+C {lab_wire.sym} 480 80 0 1 {name=p8 sig_type=std_logic lab=Eq_}
 C {devices/code_shown.sym} -940 40 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
@@ -194,7 +194,7 @@ value="
 set temp=27
 op
 echo === OP node voltages ===
-print net1 net2 net3 net4 inn eq
+print v(Inp) v(net2) v(net3) v(net4) v(Inn) v(eq_)
 print n.xr1.nr1#i1 n.xr1.nr1#i2
 print n.xm1.nsg13_hv_pmos#di
 print n.xm3.nsg13_hv_pmos#di
@@ -207,10 +207,10 @@ dc temp -40 125 1
 * net3 = bottom of XR1 = Q1 emitter
 * ΔVbe = net2 - net3
 
-let vbe   = dc1.inn
-let vdvbe = dc1.net2 - dc1.net3
-let veq   = dc1.eq
-let vnet4 = dc1.net4
+let vbe   = inn
+let vdvbe = net2 - net3
+let veq   = eq_
+let vnet4 = net4
 
 * Vbe CTAT stats
 let vbe_max = vecmax(vbe)
@@ -249,9 +249,9 @@ print veq_max veq_min veq_nom tc_eq
 echo === net4 Q3 emitter ===
 print vecmax(vnet4) vecmin(vnet4) mean(vnet4)
 
-plot dc1.inn title 'Vbe vs T (CTAT)'
-plot dc1.net2 - dc1.net3 title 'Delta_Vbe vs T (PTAT)'
-plot dc1.eq title 'Eq bandgap output vs T'
+plot inn title 'Vbe vs T (CTAT)'
+plot net2 - net3 title 'Delta_Vbe vs T (PTAT)'
+plot eq_ title 'Eq bandgap output vs T'
 plot i_ptat_ua title 'I_PTAT uA vs T'
 
 wrdata /tmp/bg_inn.txt dc1.inn
@@ -269,6 +269,8 @@ print tc_eq_pp
 print v(Eq_buf)
 print v(Out_0.48V)
 print n.xr3.nr1#i1
+
+plot v(Out_0.48V)
 
 
 .endc
@@ -354,7 +356,7 @@ C {lab_wire.sym} 1100 20 2 0 {name=p12 sig_type=std_logic lab=I_bias}
 C {lab_wire.sym} -240 520 0 0 {name=p17 sig_type=std_logic lab=VDDH}
 C {lab_wire.sym} 40 560 0 1 {name=p18 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 80 520 0 1 {name=p16 sig_type=std_logic lab=Eq_buf}
-C {lab_wire.sym} -240 540 0 0 {name=p19 sig_type=std_logic lab=Eq}
+C {lab_wire.sym} -240 540 0 0 {name=p19 sig_type=std_logic lab=Eq_}
 C {Projektai/SG13G2/SAR_ADC/5T_OTA.sym} -70 540 0 0 {name=x2}
 C {opin.sym} 290 660 2 0 {name=p13 lab=Out_0.48V}
 C {sg13g2_pr/rppd.sym} 350 610 0 0 {name=R3
@@ -387,3 +389,5 @@ spiceprefix=X
 }
 C {lab_wire.sym} -240 560 0 0 {name=p15 sig_type=std_logic lab=Buf_I_bias}
 C {lab_wire.sym} 960 20 2 0 {name=p20 sig_type=std_logic lab=Buf_I_bias}
+C {lab_wire.sym} 260 60 0 1 {name=p4 sig_type=std_logic lab=Inn}
+C {lab_wire.sym} 0 60 0 0 {name=p5 sig_type=std_logic lab=Inp}
