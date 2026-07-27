@@ -1,13 +1,13 @@
 # Launch xschem from this directory: cd sg13g2/sar_adc/xschem && xschem
 
+# Source the PDK's own xschemrc to pick up its library paths/settings
+if {[info exists env(PDK_ROOT)]} {
+    source $env(PDK_ROOT)/ihp-sg13g2/libs.tech/xschem/xschemrc
+} else {
+    puts "Warning: PDK_ROOT not set, PDK symbols may not resolve."
+}
+
 # Resolve library path relative to this rcfile's own location,
 # so it works regardless of where the repo is cloned on disk.
 set XSCHEM_LIBRARY_PATH [file dirname [info script]]/blocks
 
-# Adjust this to match wherever the PDK is installed on your system,
-# or better, set PDK_ROOT as an environment variable before launching.
-if {[info exists env(PDK_ROOT)]} {
-    append XSCHEM_LIBRARY_PATH ":$env(PDK_ROOT)/ihp-sg13g2/libs.tech/xschem"
-} else {
-    puts "Warning: PDK_ROOT not set. IHP-SG13G2 symbols may not resolve."
-}
