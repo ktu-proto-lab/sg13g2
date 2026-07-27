@@ -64,36 +64,36 @@ N -0 -40 -0 -20 {lab=#net1}
 N -40 80 -40 250 {lab=Clk_c}
 N -40 80 -0 80 {lab=Clk_c}
 C {gnd.sym} 320 60 0 0 {name=l1 lab=GND}
-C {vsource.sym} -40 280 0 0 {name=V3 value="pulse(3.3 0 1n 1n 1n 500n 1000n)" savecurrent=false}
+C {vsource.sym} -40 280 0 0 {name=V3 value="pulse(0 3.3 1n 1n 1n 500n 1000n)" savecurrent=false}
 C {gnd.sym} -40 310 0 0 {name=l5 lab=GND}
-C {vsource.sym} -200 100 0 0 {name=V4 value="dc 1" savecurrent=false}
+C {vsource.sym} -200 100 0 0 {name=V4 value="dc 1.65" savecurrent=false}
 C {gnd.sym} -200 150 0 0 {name=l6 lab=GND}
-C {devices/code_shown.sym} -240 330 0 0 {name=MODEL only_toplevel=true
+C {devices/code_shown.sym} -240 560 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
-.lib $::SG13G2_MODELS/cornerMOShv.lib mos_ff
 .lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
+*.lib $::SG13G2_MODELS/cornerMOShv.lib mos_tt
+*.include $::SG13G2_MODELS/sg13g2_moshv_mod_mismatch.lib
+.lib /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib mos_tt_mismatch
+*.include /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mismatch.lib
+*.include /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mod_mismatch.lib
 "}
-C {devices/code_shown.sym} -240 460 0 0 {name=NGSPICE only_toplevel=true
+C {devices/code_shown.sym} -240 730 0 0 {name=NGSPICE only_toplevel=true
 value="
+
+.param mm_ok=1
+
 .control
-alter V4 dc='1.65645'
-alter V5 dc='1.65'
 
-* 20 cycles at 1 MHz = 20 us
-tran 100p 20u
+tran 5p 1.1u
 
-* Skip first cycle for clean steady-state
-meas tran i_avg avg i(v1) from=1u to=20u
+plot v(x1.A) - v(x1.B) v(clk_c) v(x1.clk_c_n) xlimit 1.0000u 1.0030u
 
-let p_avg     = abs(i_avg) * 3.3
-let e_per_dec = p_avg * 1u
+plot x1.Out_p_l x1.Out_n_l xlimit 1.0000u 1.0030u
 
-print i_avg
-print p_avg
-print e_per_dec
+plot i(v1)
+plot v(clk_c)
 
-plot i(v1) v(clk_c)
 .endc
 "}
 C {devices/launcher.sym} 380 270 0 0 {name=h5
@@ -103,7 +103,7 @@ tclcommand="xschem raw_read ~/Projektai/SG13G2/simulations/tran_comparator_hv.ra
 C {lab_wire.sym} 320 0 0 1 {name=p1 sig_type=std_logic lab=Out_p}
 C {lab_wire.sym} 320 20 0 1 {name=p2 sig_type=std_logic lab=Out_n}
 C {lab_wire.sym} -40 150 0 0 {name=p3 sig_type=std_logic lab=Clk_c}
-C {vsource.sym} -120 100 0 0 {name=V5 value="dc 0" savecurrent=false}
+C {vsource.sym} -120 100 0 0 {name=V5 value="dc 1.65" savecurrent=false}
 C {gnd.sym} -120 150 0 0 {name=l7 lab=GND}
 C {lab_wire.sym} -10 40 0 0 {name=p4 sig_type=std_logic lab=Vp}
 C {lab_wire.sym} -10 60 0 0 {name=p5 sig_type=std_logic lab=Vn}
