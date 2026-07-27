@@ -109,4 +109,4 @@ C {lab_wire.sym} -10 40 0 0 {name=p4 sig_type=std_logic lab=Vp}
 C {lab_wire.sym} -10 60 0 0 {name=p5 sig_type=std_logic lab=Vn}
 C {vsource.sym} 0 -70 2 0 {name=V1 value=3.3 savecurrent=false}
 C {gnd.sym} 0 -120 2 0 {name=l4 lab=GND}
-C {ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/comparator/comparator_hv.sym} 150 40 0 0 {name=x1}
+C {blocks/comparator/comparator_hv.sym} 150 40 0 0 {name=x1}
