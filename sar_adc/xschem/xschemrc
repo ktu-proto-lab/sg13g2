@@ -9,5 +9,5 @@ if {[info exists env(PDK_ROOT)]} {
 
 # Resolve library path relative to this rcfile's own location,
 # so it works regardless of where the repo is cloned on disk.
-set XSCHEM_LIBRARY_PATH [file dirname [info script]]/blocks
+append XSCHEM_LIBRARY_PATH : [file dirname [info script]]/blocks
 
