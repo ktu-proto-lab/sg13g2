@@ -142,7 +142,7 @@ m=1
 model=sg13_hv_pmos
 spiceprefix=X
 }
-C {Projektai/SG13G2/SAR_ADC/ota_3.3v.sym} 180 70 0 0 {name=x1}
+C {blocks/cascode_ota/ota_3.3v.sym} 180 70 0 0 {name=x1}
 C {sg13g2_pr/sg13_hv_pmos.sym} 300 -50 0 0 {name=M2
 l=1u
 w=4u
@@ -357,7 +357,7 @@ C {lab_wire.sym} -240 520 0 0 {name=p17 sig_type=std_logic lab=VDDH}
 C {lab_wire.sym} 40 560 0 1 {name=p18 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 80 520 0 1 {name=p16 sig_type=std_logic lab=Eq_buf}
 C {lab_wire.sym} -240 540 0 0 {name=p19 sig_type=std_logic lab=Eq_}
-C {Projektai/SG13G2/SAR_ADC/5T_OTA.sym} -70 540 0 0 {name=x2}
+C {blocks/5t_ota/5T_OTA.sym} -70 540 0 0 {name=x2}
 C {opin.sym} 290 660 2 0 {name=p13 lab=Out_0.48V}
 C {sg13g2_pr/rppd.sym} 350 610 0 0 {name=R3
 w=2e-6
