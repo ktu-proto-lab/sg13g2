@@ -1,0 +1,180 @@
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/0.48v_bandgap_tb.sch
+**.subckt 0.48v_bandgap_tb VDDH VSS Out_0.48V
+*.ipin VDDH
+*.iopin VSS
+*.opin Out_0.48V
+XM1 Inp net1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+x1 VDDH Inp Inn net1 I_bias VSS OTA_1
+XM2 Inn net1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XR1 net2 Inp VSS rppd w=2e-6 l=100e-6 m=1 b=0
+XQ1 VSS VSS net2 pnpMPA a=2e-12 p=6e-06 m=8
+XQ2 VSS VSS Inn pnpMPA a=2e-12 p=6e-06
+V1 VDDH VSS 3.3
+XM3 Eq_ net1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XQ3 VSS VSS net3 pnpMPA a=2e-12 p=6e-06
+XR2 net3 Eq_ VSS rppd w=2e-6 l=786e-6 m=1 b=0
+XM4 net4 net1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XM5 net4 VDDH VSS VSS sg13_hv_nmos w=0.3u l=0.45u ng=1
+XM6 net5 net4 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XM7 net5 net4 VSS VSS sg13_hv_nmos w=0.3u l=0.45u ng=1
+XM8 VDDH net5 VSS VSS sg13_hv_nmos w=0.3u l=0.45u ng=1
+XM9 I_bias net1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+x2 VDDH Eq_buf Eq_buf Eq_ Buf_I_bias VSS OTA_2
+XR3 Out_0.48V Eq_buf VSS rppd w=2e-6 l=2310e-6 m=1 b=0
+XR4 VSS Out_0.48V VSS rppd w=2e-6 l=1540e-6 m=1 b=0
+XM10 Buf_I_bias net1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+**** begin user architecture code
+
+.lib /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib mos_tt
+.lib /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+.lib /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib hbt_typ
+
+
+
+.control
+ save all
+
+set temp=27
+op
+echo === OP node voltages ===
+print v(Inp) v(net2) v(net3) v(net4) v(Inn) v(eq_)
+print n.xr1.nr1#i1 n.xr1.nr1#i2
+print n.xm1.nsg13_hv_pmos#di
+print n.xm3.nsg13_hv_pmos#di
+
+dc temp -40 125 1
+
+* Correct nodes after netlist analysis:
+* Inn  = Q2 emitter = Vbe (CTAT reference)
+* net2 = top of XR1 = OTA.Inp (tracks Inn when loop closed)
+* net3 = bottom of XR1 = Q1 emitter
+* ΔVbe = net2 - net3
+
+let vbe   = inn
+let vdvbe = net2 - net3
+let veq   = eq_
+let vnet4 = net4
+
+* Vbe CTAT stats
+let vbe_max = vecmax(vbe)
+let vbe_min = vecmin(vbe)
+let vbe_nom = mean(vbe)
+let tc_vbe  = ((vbe_max - vbe_min) / vbe_nom) * 1e6 / 165
+
+* ΔVbe PTAT stats
+let vr_max = vecmax(vdvbe)
+let vr_min = vecmin(vdvbe)
+let vr_nom = mean(vdvbe)
+let tc_vr  = ((vr_max - vr_min) / vr_nom) * 1e6 / 165
+
+* PTAT current
+let i_ptat    = vdvbe / 13e3
+let i_ptat_ua = i_ptat * 1e6
+
+* CATA output
+let veq_max = vecmax(veq)
+let veq_min = vecmin(veq)
+let veq_nom = mean(veq)
+let tc_eq   = ((veq_max - veq_min) / veq_nom) * 1e6 / 165
+
+echo === Vbe CTAT (Inn) ===
+print vbe_max vbe_min vbe_nom tc_vbe
+
+echo === Delta_Vbe PTAT (net2-net3) ===
+print vr_max vr_min vr_nom tc_vr
+
+echo === I_PTAT uA ===
+print vecmax(i_ptat_ua) vecmin(i_ptat_ua) mean(i_ptat_ua)
+
+echo === Eq bandgap output ===
+print veq_max veq_min veq_nom tc_eq
+
+echo === net4 Q3 emitter ===
+print vecmax(vnet4) vecmin(vnet4) mean(vnet4)
+
+plot inn title 'Vbe vs T (CTAT)'
+plot net2 - net3 title 'Delta_Vbe vs T (PTAT)'
+plot eq_ title 'Eq bandgap output vs T'
+plot i_ptat_ua title 'I_PTAT uA vs T'
+
+wrdata /tmp/bg_inn.txt dc1.inn
+wrdata /tmp/bg_eq.txt dc1.eq
+
+echo === Eq bandgap output ===
+print veq_max veq_min veq_nom tc_eq
+
+* Better TC calculation — use max deviation from nominal
+let veq_center = (veq_max + veq_min) / 2
+let tc_eq_pp = (veq_max - veq_min) / veq_center * 1e6 / 165
+print tc_eq_pp
+
+
+print v(Eq_buf)
+print v(Out_0.48V)
+print n.xr3.nr1#i1
+
+plot v(Out_0.48V)
+
+
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  blocks/cascode_ota/OTA_1.sym # of pins=6
+** sym_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/cascode_ota/OTA_1.sym
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/cascode_ota/OTA_1.sch
+.subckt OTA_1 VDDH Inp Inn Out I_bias VSS
+*.ipin VDDH
+*.iopin VSS
+*.ipin I_bias
+*.opin Out
+*.ipin Inp
+*.ipin Inn
+XM2 net1 net1 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM3 net1 I_bias VSS VSS sg13_hv_nmos w=3u l=3u ng=1
+XM1 I_bias I_bias VSS VSS sg13_hv_nmos w=3u l=3u ng=1
+XM11 net8 I_bias VSS VSS sg13_hv_nmos w=3u l=3u ng=1
+XM13 net5 Inp net2 VDDH sg13_hv_pmos w=8u l=1u ng=2
+XM14 net6 Inn net2 VDDH sg13_hv_pmos w=8u l=1u ng=2
+XM15 net7 net4 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM20 net3 net4 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM17 net4 v_net3 net7 VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM18 net4 v_net2 net5 VSS sg13_hv_nmos w=10u l=1u ng=1
+XM19 net5 v_net1 VSS VSS sg13_hv_nmos w=9u l=1u ng=1
+XM22 Out v_net2 net6 VSS sg13_hv_nmos w=10u l=1u ng=1
+XM23 net6 v_net1 VSS VSS sg13_hv_nmos w=9u l=1u ng=1
+XM12 net2 net8 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM10 net8 net8 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM6 v_net1 v_net1 VSS VSS sg13_hv_nmos w=8u l=1u ng=1
+XM4 v_net2 net1 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM5 v_net2 v_net2 v_net1 VSS sg13_hv_nmos w=10u l=1u ng=2
+XM7 net9 net9 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM9 v_net3 I_bias VSS VSS sg13_hv_nmos w=1.9u l=3u ng=1
+XM8 v_net3 v_net3 net9 VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM21 Out v_net3 net3 VDDH sg13_hv_pmos w=10u l=1u ng=1
+.ends
+
+
+* expanding   symbol:  blocks/5t_ota/OTA_2.sym # of pins=6
+** sym_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/5t_ota/OTA_2.sym
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/5t_ota/OTA_2.sch
+.subckt OTA_2 VDDH Out Inn Inp Bias_10uA VSS
+*.ipin VDDH
+*.opin Out
+*.iopin VSS
+*.ipin Bias_10uA
+*.ipin Inp
+*.ipin Inn
+XM1 net1 net1 VDDH VDDH sg13_hv_pmos w=5u l=6u ng=1 m=4
+XM2 Out net1 VDDH VDDH sg13_hv_pmos w=5u l=6u ng=1 m=4
+XM3 net1 Inp net2 VSS sg13_hv_nmos w=10u l=2u ng=1 m=4
+XM4 Out Inn net2 VSS sg13_hv_nmos w=10u l=2u ng=1 m=4
+XM5 net2 Bias_10uA VSS VSS sg13_hv_nmos w=5u l=2u ng=1 m=12
+XM6 Bias_10uA Bias_10uA VSS VSS sg13_hv_nmos w=5u l=2u ng=1 m=2
+.ends
+
+.GLOBAL VSS
+.end

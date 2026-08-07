@@ -11,3 +11,7 @@ if {[info exists env(PDK_ROOT)]} {
 # so it works regardless of where the repo is cloned on disk.
 append XSCHEM_LIBRARY_PATH : [file dirname [info script]]/blocks
 
+# Terminal emulator used by xschem to spawn external processes (simulation, waveform viewer, etc.)
+# and to print/display simulation results in a terminal window
+# Using gnome-terminal instead of the default xterm for a more convenient/modern terminal experience
+set terminal {gnome-terminal -- bash -c}
