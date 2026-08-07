@@ -101,9 +101,9 @@ N 1100 -20 1100 20 {lab=I_bias}
 N 620 220 700 220 {lab=#net4}
 N 620 -20 620 220 {lab=#net4}
 N 700 90 700 220 {lab=#net4}
-N 150 740 150 760 {lab=Out_0.48V}
-N 150 720 150 740 {lab=Out_0.48V}
-N 150 820 150 840 {lab=VSS}
+N 1460 270 1460 290 {lab=Out_0.48V}
+N 1460 250 1460 270 {lab=Out_0.48V}
+N 1460 350 1460 370 {lab=VSS}
 N 960 -50 970 -50 {lab=VDDH}
 N 970 -80 970 -50 {lab=VDDH}
 N 960 -80 970 -80 {lab=VDDH}
@@ -115,22 +115,25 @@ N 960 -100 1100 -100 {lab=VDDH}
 N 960 -20 960 20 {lab=Buf_I_bias}
 N 320 -20 320 130 {lab=Inn}
 N -60 -100 320 -100 {lab=VDDH}
-N 150 740 240 740 {lab=Out_0.48V}
-N 150 640 150 660 {lab=Eq_buf}
+N 1460 270 1550 270 {lab=Out_0.48V}
+N 1460 100 1460 170 {lab=Eq_buf}
 N 130 -50 130 -20 {lab=#net1}
 N -20 -50 130 -50 {lab=#net1}
 N 110 110 110 130 {lab=Inp}
 N -60 130 110 130 {lab=Inp}
 N 150 130 320 130 {lab=Inn}
 N 150 110 150 130 {lab=Inn}
-N -40 620 -20 620 {lab=Eq_}
-N -40 660 -20 660 {lab=Eq_buf}
-N 30 690 30 710 {lab=VSS}
-N 30 570 30 590 {lab=VDDH}
-N 60 580 60 600 {lab=Buf_I_bias}
-N 110 640 150 640 {lab=Eq_buf}
+N 1290 80 1310 80 {lab=Eq_}
+N 1290 120 1310 120 {lab=Eq_buf}
+N 1360 30 1360 50 {lab=VDDH}
+N 1390 40 1390 60 {lab=Buf_I_bias}
+N 1420 100 1460 100 {lab=Eq_buf}
 N 60 60 80 60 {lab=VDDH}
 N 180 60 200 60 {lab=VSS}
+N 1360 150 1360 190 {lab=VSS}
+N 1290 170 1460 170 {lab=Eq_buf}
+N 1460 170 1460 190 {lab=Eq_buf}
+N 1290 120 1290 170 {lab=Eq_buf}
 C {sg13g2_pr/sg13_hv_pmos.sym} -40 -50 0 1 {name=M1
 l=1u
 w=4u
@@ -348,10 +351,10 @@ model=sg13_hv_pmos
 spiceprefix=X
 }
 C {lab_wire.sym} 1100 20 2 0 {name=p12 sig_type=std_logic lab=I_bias}
-C {lab_wire.sym} 150 640 0 1 {name=p16 sig_type=std_logic lab=Eq_buf}
-C {blocks/5t_ota/OTA_2.sym} 130 640 0 0 {name=x2}
-C {opin.sym} 240 740 0 0 {name=p13 lab=Out_0.48V}
-C {sg13g2_pr/rppd.sym} 150 690 0 0 {name=R3
+C {lab_wire.sym} 1460 100 0 1 {name=p16 sig_type=std_logic lab=Eq_buf}
+C {blocks/5t_ota/OTA_2.sym} 1460 100 0 0 {name=x2}
+C {opin.sym} 1550 270 0 0 {name=p13 lab=Out_0.48V}
+C {sg13g2_pr/rppd.sym} 1460 220 0 0 {name=R3
 w=2e-6
 l=2310e-6
 model=rppd
@@ -360,7 +363,7 @@ spiceprefix=X
 b=0
 m=1
 }
-C {sg13g2_pr/rppd.sym} 150 790 0 0 {name=R4
+C {sg13g2_pr/rppd.sym} 1460 320 0 0 {name=R4
 w=2e-6
 l=1540e-6
 model=rppd
@@ -369,7 +372,7 @@ spiceprefix=X
 b=0
 m=1
 }
-C {lab_wire.sym} 150 840 2 0 {name=p14 sig_type=std_logic lab=VSS}
+C {lab_wire.sym} 1460 370 2 0 {name=p14 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/sg13_hv_pmos.sym} 940 -50 0 0 {name=M10
 l=1u
 w=4u
@@ -383,10 +386,9 @@ C {lab_wire.sym} 190 130 0 1 {name=p4 sig_type=std_logic lab=Inn}
 C {lab_wire.sym} 80 130 0 0 {name=p5 sig_type=std_logic lab=Inp}
 C {lab_pin.sym} 60 60 0 0 {name=p9 sig_type=std_logic lab=VDDH}
 C {lab_pin.sym} 200 60 2 0 {name=p6 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 30 570 1 0 {name=p7 sig_type=std_logic lab=VDDH}
-C {lab_pin.sym} 30 710 3 0 {name=p17 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} -40 620 0 0 {name=p18 sig_type=std_logic lab=Eq_}
-C {lab_pin.sym} 60 580 1 0 {name=p19 sig_type=std_logic lab=Buf_I_bias}
-C {lab_pin.sym} -40 660 0 0 {name=p21 sig_type=std_logic lab=Eq_buf}
+C {lab_pin.sym} 1360 30 1 0 {name=p7 sig_type=std_logic lab=VDDH}
+C {lab_pin.sym} 1360 190 3 0 {name=p17 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 1290 80 0 0 {name=p18 sig_type=std_logic lab=Eq_}
+C {lab_pin.sym} 1390 40 1 0 {name=p19 sig_type=std_logic lab=Buf_I_bias}
 C {lab_pin.sym} 80 20 0 0 {name=p15 sig_type=std_logic lab=I_bias}
 C {lab_pin.sym} -330 -50 1 0 {name=p2 sig_type=std_logic lab=VDDH}
