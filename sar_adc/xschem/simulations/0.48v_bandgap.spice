@@ -1,0 +1,64 @@
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/0.48v_bandgap.sch
+**.subckt 0.48v_bandgap VDDH Out VSS
+*.iopin VSS
+*.ipin VDDH
+*.opin Out
+XM1 Inp net_1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+x1 VDDH Inp Inn net_1 I_bias VSS OTA_1
+XM2 Inn net_1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XR1 net1 Inp VSS rppd w=2e-6 l=100e-6 m=1 b=0
+XQ1 VSS VSS net1 pnpMPA a=2e-12 p=6e-06 m=8
+XQ2 VSS VSS Inn pnpMPA a=2e-12 p=6e-06
+XM3 Out net_1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XQ3 VSS VSS net2 pnpMPA a=2e-12 p=6e-06
+XR2 net2 Out VSS rppd w=2e-6 l=784e-6 m=1 b=0
+XM9 I_bias net_1 VDDH VDDH sg13_hv_pmos w=4u l=1u ng=1
+XM4 net_3 v_c1 net3 net3 sg13_hv_pmos w=1u l=0.4u ng=1
+XM6 v_c1 v_c1 net4 net4 sg13_hv_pmos w=1u l=0.4u ng=1
+XM7 net_3 Inp VSS VSS sg13_hv_nmos w=0.3u l=0.45u ng=1
+XM8 net5 net_3 VSS VSS sg13_hv_nmos w=5u l=0.45u ng=1 m=2
+XC1 v_c1 VSS cap_cmim w=5.0e-6 l=5.0e-6
+XM11 VSS VDDH v_c1 VDDH sg13_hv_pmos w=1u l=0.4u ng=1
+Vmeas2 VDDH net3 0
+.save i(vmeas2)
+Vmeas3 net_1 net5 0
+.save i(vmeas3)
+Vmeas1 VDDH net4 0
+.save i(vmeas1)
+**.ends
+
+* expanding   symbol:  blocks/cascode_ota/OTA_1.sym # of pins=6
+** sym_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/cascode_ota/OTA_1.sym
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/cascode_ota/OTA_1.sch
+.subckt OTA_1 VDDH Inp Inn Out I_bias VSS
+*.ipin VDDH
+*.iopin VSS
+*.ipin I_bias
+*.opin Out
+*.ipin Inp
+*.ipin Inn
+XM2 net1 net1 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM3 net1 I_bias VSS VSS sg13_hv_nmos w=3u l=3u ng=1
+XM1 I_bias I_bias VSS VSS sg13_hv_nmos w=3u l=3u ng=1
+XM11 net8 I_bias VSS VSS sg13_hv_nmos w=3u l=3u ng=1
+XM13 net5 Inp net2 VDDH sg13_hv_pmos w=8u l=1u ng=2
+XM14 net6 Inn net2 VDDH sg13_hv_pmos w=8u l=1u ng=2
+XM15 net7 net4 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM20 net3 net4 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM17 net4 v_net3 net7 VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM18 net4 v_net2 net5 VSS sg13_hv_nmos w=10u l=1u ng=1
+XM19 net5 v_net1 VSS VSS sg13_hv_nmos w=9u l=1u ng=1
+XM22 Out v_net2 net6 VSS sg13_hv_nmos w=10u l=1u ng=1
+XM23 net6 v_net1 VSS VSS sg13_hv_nmos w=9u l=1u ng=1
+XM12 net2 net8 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM10 net8 net8 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM6 v_net1 v_net1 VSS VSS sg13_hv_nmos w=8u l=1u ng=1
+XM4 v_net2 net1 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM5 v_net2 v_net2 v_net1 VSS sg13_hv_nmos w=10u l=1u ng=2
+XM7 net9 net9 VDDH VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM9 v_net3 I_bias VSS VSS sg13_hv_nmos w=1.9u l=3u ng=1
+XM8 v_net3 v_net3 net9 VDDH sg13_hv_pmos w=10u l=1u ng=1
+XM21 Out v_net3 net3 VDDH sg13_hv_pmos w=10u l=1u ng=1
+.ends
+
+.end

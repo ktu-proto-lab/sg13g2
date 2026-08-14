@@ -1,7 +1,7 @@
-** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/0.48v_bandgap_tb.sch
-**.subckt 0.48v_bandgap_tb
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/1.2v_bandgap_tb.sch
+**.subckt 1.2v_bandgap_tb
 V1 VDDH 0 3.3
-x1 VDDH Out 0 0.48v_bandgap
+x1 VDDH Out 0 1.2v_bandgap
 **** begin user architecture code
 
 .lib /eda/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib mos_tt
@@ -82,9 +82,9 @@ let tc_eq_pp = (veq_max - veq_min) / veq_center * 1e6 / 165
 echo === TC (peak-to-peak / center) ===
 print tc_eq_pp
 
-plot x1.Inn title 'Vbe vs T (CTAT)'
+plot x1.Inn title 'Vbe vs. T (CTAT)'
 plot x1.Inp - x1.net1 title 'Delta_Vbe vs. T (PTAT, across XR1)'
-plot out title 'Bandgap Output vs. T'
+plot out title 'Bandgap output vs. T'
 plot i_ptat_ua title 'I_PTAT uA vs. T'
 
 
@@ -103,10 +103,10 @@ plot i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3) xlimit 0 20n title 'Startup ci
 **** end user architecture code
 **.ends
 
-* expanding   symbol:  bandgap/0.48v_bandgap.sym # of pins=3
-** sym_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/0.48v_bandgap.sym
-** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/0.48v_bandgap.sch
-.subckt 0.48v_bandgap VDDH Out VSS
+* expanding   symbol:  bandgap/1.2v_bandgap.sym # of pins=3
+** sym_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/1.2v_bandgap.sym
+** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/1.2v_bandgap.sch
+.subckt 1.2v_bandgap VDDH Out VSS
 *.iopin VSS
 *.ipin VDDH
 *.opin Out
