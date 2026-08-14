@@ -15,3 +15,6 @@ append XSCHEM_LIBRARY_PATH : [file dirname [info script]]/blocks
 # and to print/display simulation results in a terminal window
 # Using gnome-terminal instead of the default xterm for a more convenient/modern terminal experience
 set terminal {gnome-terminal -- bash -c}
+
+# Text editor used by xschem to open/edit netlist and schematic source files
+set editor "gedit"
