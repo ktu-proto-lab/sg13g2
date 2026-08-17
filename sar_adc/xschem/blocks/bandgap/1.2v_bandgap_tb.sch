@@ -111,7 +111,7 @@ plot i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3) xlimit 0 20n title 'Startup ci
 }
 C {vsource.sym} -90 0 1 0 {name=V1 value=3.3 savecurrent=false}
 C {gnd.sym} -140 0 1 0 {name=l6 lab=0}
-C {bandgap/1.2v_bandgap.sym} 150 10 0 0 {name=x1}
+C {blocks/bandgap/1.2v_bandgap.sym} 150 10 0 0 {name=x1}
 C {lab_wire.sym} -40 0 0 1 {name=p1 sig_type=std_logic lab=VDDH}
 C {gnd.sym} 320 40 0 0 {name=l1 lab=0}
 C {lab_wire.sym} 320 0 0 1 {name=p2 sig_type=std_logic lab=Out}
