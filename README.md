@@ -14,3 +14,11 @@ If you launch xschem from elsewhere and get "symbol not found" errors, you're mo
 ```bash
 export XSCHEM_RCFILE=/absolute/path/to/sg13g2/sar_adc/xschem/xschemrc
 ```
+Or you can use nix
+```bash
+cd sg13g2/sar_adc/
+nix develop
+# make sure your ciel is setup (if its not, instructions are printed in the shell)
+cd xschem/
+xschem
+```
