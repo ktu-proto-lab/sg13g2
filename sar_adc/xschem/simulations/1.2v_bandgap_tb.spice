@@ -103,7 +103,7 @@ plot i(v.x1.Vmeas1) i(v.x1.Vmeas2) i(v.x1.Vmeas3) xlimit 0 20n title 'Startup ci
 **** end user architecture code
 **.ends
 
-* expanding   symbol:  bandgap/1.2v_bandgap.sym # of pins=3
+* expanding   symbol:  blocks/bandgap/1.2v_bandgap.sym # of pins=3
 ** sym_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/1.2v_bandgap.sym
 ** sch_path: /home/la_hk/ktu-proto-lab/sg13g2/sar_adc/xschem/blocks/bandgap/1.2v_bandgap.sch
 .subckt 1.2v_bandgap VDDH Out VSS
