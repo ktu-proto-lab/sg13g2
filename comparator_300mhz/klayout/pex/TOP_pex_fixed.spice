@@ -361,4 +361,5 @@ Cext_15_15 Clk_c VSUBS 0.98f
 Cext_16_17 V+ V\x2d 7.21f
 Cext_16_16 V+ VSUBS 1.59f
 Cext_17_17 V\x2d VSUBS 1.84f
+Rsub_internal VSUBS VSS 1
 .ENDS
